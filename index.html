@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Interactive parallel-flow and counter-flow heat exchanger laboratory demonstration.">
+  <title>Heat Exchanger Lab | Parallel & Counter Flow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="quiz-bank.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to experiment</a>
+  <header class="topbar">
+    <a class="brand college-brand" href="#" aria-label="University of Technology and Applied Sciences, Nizwa">
+      <img src="assets/utas-nizwa.jpeg" alt="University of Technology and Applied Sciences, Nizwa">
+      <span><strong>COLLEGE OF ENGINEERING &amp; TECHNOLOGY</strong><small>M&amp;I SECTION</small></span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#experiment">Experiment</a><a href="#observations">Observations</a><a href="#theory">Theory</a><a href="#quiz">Quiz</a>
+    </nav>
+    <button class="button ghost" id="printButton" type="button">Print report</button>
+  </header>
+
+  <aside class="solution-brand" aria-label="Technology partner">
+    <span>Designed &amp; developed by</span>
+    <img src="assets/indinova-logo.jpg" alt="Indinova Digital Solution">
+  </aside>
+
+  <main id="main">
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">Experiment · Virtual laboratory</span>
+        <h1>Heat exchanger <span>effectiveness</span></h1>
+        <p>Compare parallel and counter-flow arrangements, record measurements, and calculate thermal performance in real time.</p>
+        <div class="hero-actions"><a class="button primary" href="#experiment">Start experiment</a><a class="button secondary" href="#theory">Review theory</a></div>
+      </div>
+      <div class="hero-stats" aria-label="Experiment specifications">
+        <div><span>Inner tube</span><strong>9.5 mm</strong></div>
+        <div><span>Outer tube</span><strong>12.5 mm</strong></div>
+        <div><span>Exchanger length</span><strong>1.5 m</strong></div>
+      </div>
+    </section>
+
+    <section class="workspace" id="experiment">
+      <div class="section-heading">
+        <div><span class="eyebrow">Flow configuration</span><h2>Choose an arrangement</h2></div>
+        <div class="segmented" role="tablist" aria-label="Flow configuration">
+          <button role="tab" aria-selected="true" aria-controls="parallel-panel" id="parallel-tab" data-mode="parallel">Parallel flow</button>
+          <button role="tab" aria-selected="false" aria-controls="counter-panel" id="counter-tab" data-mode="counter">Counter flow</button>
+        </div>
+      </div>
+
+      <article class="diagram-card" id="parallel-panel" role="tabpanel" aria-labelledby="parallel-tab">
+        <div class="diagram-copy"><span class="status parallel">Same direction</span><h3>Parallel-flow heat exchanger</h3><p>Hot and cold fluids enter at the same end and travel in the same direction. The temperature difference is greatest at the inlet and decreases along the exchanger.</p></div>
+        <div class="run-control"><label for="parallelRun">Readings shown on apparatus</label><select id="parallelRun" class="run-select" data-run-select aria-label="Select observation run displayed on parallel-flow apparatus"></select></div>
+        <figure>
+          <div class="apparatus-stage parallel-stage">
+            <img src="assets/parallel-flow.png" alt="Parallel-flow heat exchanger apparatus with hot and cold fluids moving left to right">
+            <span class="sensor sensor-t1" data-sensor="thi"><b>T1</b><output>-- °C</output></span><span class="sensor sensor-t2" data-sensor="tho"><b>T2</b><output>-- °C</output></span><span class="sensor sensor-cold-in" data-sensor="tci"><b>t1</b><output>-- °C</output></span><span class="sensor sensor-cold-out" data-sensor="tco"><b>t2</b><output>-- °C</output></span><span class="sensor flow-sensor sensor-mh" data-flow-sensor="mh"><b>Mh</b><output>-- kg/s</output></span><span class="sensor flow-sensor sensor-mc" data-flow-sensor="mc"><b>Mc</b><output>-- kg/s</output></span>
+          </div>
+          <figcaption><span class="hot-dot"></span> Hot fluid <span class="cold-dot"></span> Cold fluid</figcaption>
+        </figure>
+      </article>
+
+      <article class="diagram-card" id="counter-panel" role="tabpanel" aria-labelledby="counter-tab" hidden>
+        <div class="diagram-copy"><span class="status counter">Opposite directions</span><h3>Counter-flow heat exchanger</h3><p>Hot and cold fluids enter at opposite ends and travel in opposite directions, maintaining a more uniform temperature difference along the exchanger.</p></div>
+        <div class="run-control"><label for="counterRun">Readings shown on apparatus</label><select id="counterRun" class="run-select" data-run-select aria-label="Select observation run displayed on counter-flow apparatus"></select></div>
+        <figure>
+          <div class="apparatus-stage counter-stage">
+            <img src="assets/counter-flow.png" alt="Counter-flow heat exchanger apparatus with hot fluid moving right and cold fluid moving left">
+            <span class="sensor sensor-t1" data-sensor="thi"><b>T1</b><output>-- °C</output></span><span class="sensor sensor-t2" data-sensor="tho"><b>T2</b><output>-- °C</output></span><span class="sensor sensor-cold-in" data-sensor="tci"><b>t1</b><output>-- °C</output></span><span class="sensor sensor-cold-out" data-sensor="tco"><b>t2</b><output>-- °C</output></span><span class="sensor flow-sensor sensor-mh" data-flow-sensor="mh"><b>Mh</b><output>-- kg/s</output></span><span class="sensor flow-sensor sensor-mc" data-flow-sensor="mc"><b>Mc</b><output>-- kg/s</output></span>
+          </div>
+          <figcaption><span class="hot-dot"></span> Hot fluid <span class="cold-dot"></span> Cold fluid</figcaption>
+        </figure>
+      </article>
+    </section>
+
+    <section class="observations" id="observations">
+      <div class="section-heading"><div><span class="eyebrow">Live calculations</span><h2>Observation & calculation table</h2><p>Edit any reading. Calculated values update immediately.</p></div><div class="table-actions"><button class="button secondary" id="resetButton" type="button">Reset</button><button class="button primary" id="exportButton" type="button">Export CSV</button></div></div>
+      <div class="notice" role="status"><strong id="modeLabel">Parallel flow</strong><span>LMTD temperature pairs update automatically for the selected arrangement.</span></div>
+      <div class="table-wrap">
+        <table>
+          <caption class="sr-only">Heat exchanger observations and calculated performance</caption>
+          <thead>
+            <tr><th rowspan="2">Run</th><th colspan="2">Collection time (s)</th><th colspan="2">Mass flow (kg/s)</th><th colspan="4">Temperature (°C)</th><th colspan="2">Heat transfer (W)</th><th rowspan="2">LMTD<br>(K)</th><th rowspan="2">U<br>(W/m²·K)</th><th rowspan="2">Effectiveness</th></tr>
+            <tr><th>Hot t<sub>h</sub></th><th>Cold t<sub>c</sub></th><th>M<sub>h</sub></th><th>M<sub>c</sub></th><th>T1<br><small>Hot in</small></th><th>T2<br><small>Hot out</small></th><th>t1<br><small>Cold in</small></th><th>t2<br><small>Cold out</small></th><th>Q<sub>h</sub></th><th>Q<sub>c</sub></th></tr>
+          </thead>
+          <tbody id="readingsBody"></tbody>
+        </table>
+      </div>
+      <div class="summary-grid">
+        <div class="metric"><span>Average heat transfer</span><strong id="avgQ">—</strong><small>watts</small></div>
+        <div class="metric"><span>Average overall coefficient</span><strong id="avgU">—</strong><small>W/m²·K</small></div>
+        <div class="metric accent"><span>Average effectiveness</span><strong id="avgE">—</strong><small>dimensionless</small></div>
+      </div>
+    </section>
+
+    <section class="theory" id="theory">
+      <div class="section-heading"><div><span class="eyebrow">Reference</span><h2>Theory & method</h2></div></div>
+      <div class="theory-grid">
+        <article class="panel"><h3>Aim</h3><p>Conduct heat-transfer tests in parallel- and counter-flow arrangements; determine heat-transfer rate, overall heat-transfer coefficient, and effectiveness.</p><h3>Apparatus</h3><ul><li>Concentric-tube heat exchanger</li><li>Measuring flasks</li><li>Stopwatch and temperature indicators</li></ul></article>
+        <article class="panel formula-panel"><h3>Core equations</h3><div class="formula"><span>Mass flow rates (1 litre collected)</span><strong>ṁ<sub>h</sub> = 1/t<sub>h</sub>, &nbsp; ṁ<sub>c</sub> = 1/t<sub>c</sub> &nbsp; kg/s</strong></div><div class="formula"><span>Hot-side heat transfer</span><strong>Q<sub>h</sub> = ṁ<sub>h</sub> c<sub>p</sub> (T1 − T2)</strong></div><div class="formula"><span>Cold-side heat transfer</span><strong>Q<sub>c</sub> = ṁ<sub>c</sub> c<sub>p</sub> (t2 − t1)</strong></div><div class="formula"><span>Log mean temperature difference</span><strong>ΔT<sub>lm</sub> = (ΔT<sub>1</sub> − ΔT<sub>2</sub>) / ln(ΔT<sub>1</sub>/ΔT<sub>2</sub>)</strong></div><div class="formula"><span>Overall coefficient</span><strong>U = Q<sub>avg</sub> / (A · ΔT<sub>lm</sub>)</strong></div><div class="formula"><span>Effectiveness</span><strong>ε = Q<sub>avg</sub> / [C<sub>min</sub>(T1 − t1)]</strong></div></article>
+        <article class="panel procedure"><h3>Procedure</h3><ol><li>Set valves for the selected flow arrangement.</li><li>Switch on the heater and admit cold water.</li><li>Adjust hot and cold flow rates to steady values.</li><li>Allow temperatures to reach steady state.</li><li>Record inlet/outlet temperatures and collection times.</li><li>Repeat for several flow rates, then calculate performance.</li></ol></article>
+      </div>
+      <div class="lmtd-grid" aria-label="LMTD equations by flow arrangement">
+        <article class="lmtd-card parallel-lmtd"><div class="lmtd-heading"><span class="status parallel">Same direction</span><h3>Parallel-flow LMTD</h3></div><div class="temperature-path" aria-label="Parallel flow temperature diagram"><div class="path hot-path"><span>T1</span><i></i><span>T2</span></div><div class="path cold-path"><span>t1</span><i></i><span>t2</span></div><div class="delta-label inlet">ΔT<sub>1</sub></div><div class="delta-label outlet">ΔT<sub>2</sub></div></div><p>ΔT<sub>1</sub> = T1 − t1 &nbsp;&nbsp;|&nbsp;&nbsp; ΔT<sub>2</sub> = T2 − t2</p><strong>ΔT<sub>lm,p</sub> = [(T1−t1) − (T2−t2)] / ln[(T1−t1)/(T2−t2)]</strong></article>
+        <article class="lmtd-card counter-lmtd"><div class="lmtd-heading"><span class="status counter">Opposite directions</span><h3>Counter-flow LMTD</h3></div><div class="temperature-path" aria-label="Counter flow temperature diagram"><div class="path hot-path"><span>T1</span><i></i><span>T2</span></div><div class="path cold-path reverse"><span>t2</span><i></i><span>t1</span></div><div class="delta-label inlet">ΔT<sub>1</sub></div><div class="delta-label outlet">ΔT<sub>2</sub></div></div><p>ΔT<sub>1</sub> = T1 − t2 &nbsp;&nbsp;|&nbsp;&nbsp; ΔT<sub>2</sub> = T2 − t1</p><strong>ΔT<sub>lm,c</sub> = [(T1−t2) − (T2−t1)] / ln[(T1−t2)/(T2−t1)]</strong></article>
+      </div>
+      <div class="comparison-card"><h3>Arrangement comparison</h3><div class="table-wrap"><table><thead><tr><th>Characteristic</th><th>Parallel flow</th><th>Counter flow</th></tr></thead><tbody><tr><th>Fluid direction</th><td>Same direction</td><td>Opposite directions</td></tr><tr><th>Temperature difference</th><td>Falls rapidly along length</td><td>More uniform along length</td></tr><tr><th>Typical effectiveness</th><td>Lower</td><td>Higher</td></tr><tr><th>Cold outlet limit</th><td>Below hot outlet</td><td>Can exceed hot outlet</td></tr></tbody></table></div></div>
+    </section>
+
+    <section class="quiz-section" id="quiz">
+      <div class="section-heading"><div><span class="eyebrow">Student assessment</span><h2>Heat exchanger quiz</h2><p>Each student receives four questions selected randomly from the complete question bank.</p></div><div class="quiz-capacity"><strong id="studentCount">0</strong><span>/ 30 students</span></div></div>
+
+      <div class="quiz-shell">
+        <article class="quiz-start" id="quizStart">
+          <div class="quiz-intro"><span class="quiz-icon">4</span><div><h3>Four questions · Four marks</h3><p>Questions may cover parallel flow, counter flow, multiple choice, true or false, and fill in the blank.</p></div></div>
+          <form id="studentForm" class="student-form">
+            <label><span>Student name</span><input id="studentName" name="studentName" type="text" maxlength="80" autocomplete="name" required placeholder="Enter full name"></label>
+            <label><span>Student ID</span><input id="studentId" name="studentId" type="text" maxlength="30" autocomplete="off" required placeholder="Enter ID or roll number"></label>
+            <label><span>Question set</span><select id="quizScope" name="quizScope" required><option value="combined">Combined flow</option><option value="parallel">Parallel flow only</option><option value="counter">Counter flow only</option></select></label>
+            <button class="button primary" type="submit">Start random quiz</button>
+          </form>
+          <p class="form-message" id="quizMessage" role="alert"></p>
+        </article>
+
+        <form class="quiz-paper" id="quizForm" hidden>
+          <div class="quiz-paper-head"><div><span class="eyebrow">Assigned assessment</span><h3 id="quizStudent"></h3></div><span class="mark-pill">4 marks</span></div>
+          <div id="quizQuestions" class="question-list"></div>
+          <div class="quiz-submit"><p>Answer all four questions before submitting.</p><button class="button primary" type="submit">Submit answers</button></div>
+        </form>
+
+        <article class="mark-report" id="markReport" hidden>
+          <div class="report-brand"><img src="assets/utas-nizwa.jpeg" alt="University of Technology and Applied Sciences, Nizwa"><div><strong>COLLEGE OF ENGINEERING &amp; TECHNOLOGY</strong><span>M&amp;I SECTION · HEAT EXCHANGER QUIZ</span></div></div>
+          <div class="result-summary"><div><span>Student</span><strong id="reportStudent"></strong><small id="reportStudentId"></small></div><div class="score-ring"><strong id="reportScore">0/4</strong><span id="reportPercent">0%</span></div></div>
+          <div id="answerReview" class="answer-review"></div>
+          <div class="report-meta"><span id="reportDate"></span><span>Maximum marks: 4</span></div>
+          <div class="report-actions"><button class="button secondary" id="printQuizReport" type="button">Print mark report</button><button class="button primary" id="nextStudent" type="button">Next student</button></div>
+        </article>
+      </div>
+
+      <article class="class-register">
+        <div class="register-head"><div><h3>Class mark register</h3><p>Up to 30 completed student reports are retained on this device.</p></div><div class="register-actions"><button class="button secondary" id="teacherTools" type="button">Teacher controls</button><button class="button secondary" id="exportMarks" type="button">Export marks CSV</button></div></div>
+        <div class="table-wrap"><table><thead><tr><th>S. No.</th><th>Student ID</th><th>Student name</th><th>Question set</th><th>Questions</th><th>Marks</th><th>Percentage</th><th>Submitted</th></tr></thead><tbody id="marksBody"><tr><td colspan="8" class="empty-register">No quiz submissions yet.</td></tr></tbody></table></div>
+      </article>
+    </section>
+  </main>
+  <dialog id="teacherDialog" class="teacher-dialog" aria-labelledby="teacherDialogTitle">
+    <form method="dialog" class="dialog-card" id="teacherAuthForm">
+      <div class="dialog-head"><div><span class="eyebrow">Restricted access</span><h2 id="teacherDialogTitle">Teacher controls</h2></div><button class="dialog-close" value="cancel" aria-label="Close teacher controls">×</button></div>
+      <div id="teacherLoginPanel"><p>Enter the teacher password to manage quiz records.</p><label><span>Password</span><input id="teacherPassword" type="password" autocomplete="current-password" required></label><p class="form-message" id="teacherAuthMessage" role="alert"></p><button class="button primary" id="teacherLogin" type="button">Unlock controls</button></div>
+      <div id="teacherAdminPanel" hidden>
+        <div class="teacher-status"><span>Authenticated teacher session</span><button class="text-button" id="teacherLock" type="button">Lock</button></div>
+        <section><h3>Reset quiz records</h3><p>Reset the selected question set or erase every quiz result stored on this device.</p><label><span>Records to reset</span><select id="resetScope"><option value="combined">Combined-flow quiz records</option><option value="parallel">Parallel-flow quiz records</option><option value="counter">Counter-flow quiz records</option><option value="all">All quiz records</option></select></label><button class="button danger" id="resetQuizRecords" type="button">Reset selected records</button><p class="form-message" id="resetQuizMessage" role="status"></p></section>
+        <section><h3>Change teacher password</h3><div class="password-grid"><label><span>Current password</span><input id="oldPassword" type="password" autocomplete="current-password"></label><label><span>New password</span><input id="newPassword" type="password" minlength="10" autocomplete="new-password"></label><label><span>Confirm new password</span><input id="confirmPassword" type="password" minlength="10" autocomplete="new-password"></label></div><button class="button secondary" id="changePassword" type="button">Update password</button><p class="form-message" id="passwordMessage" role="status"></p></section>
+      </div>
+    </form>
+  </dialog>
+  <footer><strong>COLLEGE OF ENGINEERING &amp; TECHNOLOGY</strong><span>M&amp;I SECTION</span><span>c<sub>p,water</sub> = 4187 J/kg·K · Volume collected = 1 litre</span><img src="assets/indinova-logo.jpg" alt="Indinova Digital Solution"></footer>
+  <noscript><div class="noscript">JavaScript is required for interactive calculations.</div></noscript>
+</body>
+</html>
