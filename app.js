@@ -228,6 +228,13 @@ async function hashText(value){
 }
 function lockTeacherControls(){teacherAdminPanel.hidden=true;teacherLoginPanel.hidden=false;document.querySelector("#teacherPassword").value=""}
 document.querySelector("#teacherTools").addEventListener("click",()=>{lockTeacherControls();teacherDialog.showModal();document.querySelector("#teacherPassword").focus()});
+document.querySelector("#closeTeacherDialog").addEventListener("click",()=>teacherDialog.close());
+teacherDialog.addEventListener("click",event=>{
+  const rect=teacherDialog.getBoundingClientRect();
+  const outside=event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom;
+  if(outside) teacherDialog.close();
+});
+teacherDialog.addEventListener("close",lockTeacherControls);
 document.querySelector("#teacherLock").addEventListener("click",lockTeacherControls);
 document.querySelector("#teacherLogin").addEventListener("click",async()=>{
   const message=document.querySelector("#teacherAuthMessage");
